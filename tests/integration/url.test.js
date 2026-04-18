@@ -1,5 +1,5 @@
-const request = require('supertest');
-const app = require('../../src/app');
+import request from 'superagent';
+import app from '../../src/app.js';
 
 describe('POST /shorten', () => {
   it('returns 201 with a shortUrl', async () => {

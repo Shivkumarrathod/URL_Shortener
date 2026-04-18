@@ -1,6 +1,6 @@
-import pool  from '../db/pool'
-import redis from './redis.service';
-import { generateCode } from '../utils/generateCode';
+import pool  from '../db/pool.js';
+import { get, set,incr } from './redis.service.js';
+import { generateCode } from '../utiles/generateCode.js';
 
 const CACHE_TTL = parseInt(process.env.CACHE_TTL || '3600', 10);
 
@@ -21,7 +21,7 @@ async function createShortUrl(longUrl) {
         [code, longUrl]
       );
       // Warm the cache immediately after write
-      await redis.set(`url:${code}`, longUrl, CACHE_TTL);
+      await set(`url:${code}`, longUrl, CACHE_TTL);
       return { code: rows[0].code, shortUrl: `${process.env.BASE_URL}/${code}` };
     } catch (err) {
       if (err.code === '23505') { // unique_violation
@@ -40,7 +40,7 @@ async function createShortUrl(longUrl) {
  */
 async function resolveCode(code) {
   // 1. Check cache
-  const cached = await redis.get(`url:${code}`);
+  const cached = await get(`url:${code}`);
   if (cached) return cached;
 
   // 2. Cache miss — hit Postgres
@@ -51,7 +51,7 @@ async function resolveCode(code) {
   if (rows.length === 0) return null;
 
   // 3. Repopulate cache
-  await redis.set(`url:${code}`, rows[0].long_url, CACHE_TTL);
+  await set(`url:${code}`, rows[0].long_url, CACHE_TTL);
   return rows[0].long_url;
 }
 
@@ -66,7 +66,7 @@ async function recordClick(code, ip, userAgent) {
       [code, ip, userAgent]
     );
     // Also increment the Redis counter for fast stats reads
-    await redis.incr(`clicks:${code}`);
+    await incr(`clicks:${code}`);
   } catch (err) {
     console.error('Failed to record click:', err.message);
   }
@@ -87,4 +87,4 @@ async function getStats(code) {
   return rows[0] || null;
 }
 
-export { createShortUrl, resolveCode, recordClick, getStats };
+export  { createShortUrl, resolveCode, recordClick, getStats }  ;

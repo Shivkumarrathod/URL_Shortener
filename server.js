@@ -1,6 +1,6 @@
-import app from './src/app'
-import { client as redisClient } from './src/services/redis.service'
-import pool from './src/db/pool'
+import app from './src/app.js'
+import { client as redisClient } from './src/services/redis.service.js'
+import pool from './src/db/pool.js'
 
 const PORT = process.env.PORT || 3000;
 
