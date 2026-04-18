@@ -222,3 +222,11 @@ Expected response:
    "status": "ok"
 }
 ```
+
+
+## Contributing
+
+### 🎨 Frontend needed — [See Issue #1](../../issues/1)
+
+The backend API is complete. We're looking for contributors to build
+the frontend (single page). See `/frontend/README.md` for the full spec.
