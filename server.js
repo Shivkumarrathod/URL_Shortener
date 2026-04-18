@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import app from './src/app.js'
 import { client as redisClient } from './src/services/redis.service.js'
 import pool from './src/db/pool.js'
