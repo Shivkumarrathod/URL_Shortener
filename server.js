@@ -1,6 +1,8 @@
-const app = require('./src/app');
-const { client: redisClient } = require('./src/services/redis.service');
-const pool = require('./src/db/pool');
+import app from './src/app.js'
+import { client as redisClient } from './src/services/redis.service.js';
+import pool from './src/db/pool.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const PORT = process.env.PORT || 3000;
 

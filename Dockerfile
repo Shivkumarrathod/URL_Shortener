@@ -5,7 +5,7 @@ WORKDIR /app
 
 # Copy only package files first — this layer is cached unless deps change
 COPY package*.json ./
-RUN npm ci --only=production
+RUN npm ci
 
 # ─── Stage 2: build ──────────────────────────────────────────
 # Separate stage so devDependencies (jest, nodemon) never enter runtime
