@@ -1,0 +1,15 @@
+node_modules
+npm-debug.log
+.env
+.env.*
+!.env.example
+tests/
+*.test.js
+.git
+.gitignore
+docker-compose*.yml
+Dockerfile
+README.md
+monitoring/
+terraform/
+k8s/

@@ -1,0 +1,12 @@
+version: "3.9"
+
+services:
+  app:
+    # Mount source code so changes reflect without rebuilding
+    volumes:
+      - ./src:/app/src
+      - ./server.js:/app/server.js
+    # Override CMD to use nodemon for hot reload
+    command: ["node_modules/.bin/nodemon", "server.js"]
+    environment:
+      NODE_ENV: development
