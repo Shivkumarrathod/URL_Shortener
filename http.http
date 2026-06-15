@@ -4,3 +4,9 @@ Content-Type: application/json
 {
     "url":"https://www.anthropic.com"
 }
+
+###
+GET http://localhost:3000/stats/sBpuyCo
+
+###
+GET http://localhost:3000/sBpuyCo
